@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Room</title>
+    <style>
+        /* Basic CSS for the chat room */
+        #chat-box {
+            width: 300px;
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        #message-input {
+            width: 200px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Welcome to the Chat Room</h2>
+    <div id="chat-box"></div>
+    <input type="text" id="message-input" placeholder="Type your message...">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        // JavaScript for handling chat functionality
+        let chatBox = document.getElementById('chat-box');
+        let messageInput = document.getElementById('message-input');
+
+        function displayMessage(message) {
+            chatBox.innerHTML += `<p>${message}</p>`;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // Replace 'your_user_id' and 'your_chat_id' with the actual values from Flask
+        let userID = "{{ user_id }}"; // User ID obtained from Flask
+        let chatID = "{{ last_chat_id }}"; // Last Chat ID obtained from Flask
+
+        // Example: sending a message to the server
+        function sendMessage() {
+            let message = messageInput.value;
+            displayMessage(`User ${userID}: ${message}`);
+            messageInput.value = '';
+
+            // Here, you can send the message to the server if needed
+            // You'll need to handle sending messages to the server and receiving messages from other users
+            // using WebSockets or AJAX, depending on your implementation.
+            // For demonstration purposes, this example only displays the message in the chat box.
+        }
+
+        // Example: receiving a message from the server
+        // This would typically be part of WebSocket or AJAX handling to receive messages from the server
+        // For this example, it's simulated with a timeout
+        setTimeout(function() {
+            displayMessage(`Another User: Hello!`);
+        }, 3000); // Simulated delay
+
+        // You'll need to implement actual message sending and receiving logic here using WebSockets or AJAX.
+        // This example demonstrates the client-side chat functionality but doesn't handle server interactions.
+    </script>
+</body>
+</html>
